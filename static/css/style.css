@@ -16,14 +16,20 @@
   --hairline: #363c45;
 
   --text-primary: #eef1f3;
-  --text-muted: #8b9299;
-  --text-faint: #5c636b;
+  --text-muted: #a3aab1;
+  --text-faint: #767d85;
 
   --amber: #ffb020;
   --amber-dim: #8a5f13;
   --teal: #2dd4a7;
   --teal-dim: #16624c;
   --red-signal: #ff5c5c;
+
+  /* Secondary surface tone -- used to break up the single grey/asphalt
+     background with a cooler, slightly blue-tinted panel color so the
+     page reads as having more than one flat background. */
+  --surface-alt: #1a2230;
+  --surface-alt-border: #2a3546;
 
   --font-display: 'Rajdhani', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
@@ -36,6 +42,20 @@
 
 * { box-sizing: border-box; }
 
+/*
+  color-scheme: dark tells the browser this page is intentionally dark,
+  so native/OS-rendered controls (select dropdown lists, date pickers,
+  scrollbars, autofill) pick dark-appropriate default colors instead of
+  their light-theme defaults. Without this, some browsers render the
+  text inside <select>/<option> and <input type="date"> in a color close
+  to their own background, so it's only readable once hovered/selected
+  and the browser's highlight color takes over -- which is exactly the
+  "text invisible until highlighted" symptom.
+*/
+html {
+  color-scheme: dark;
+}
+
 html, body {
   min-height: 100%;
 }
@@ -43,8 +63,9 @@ html, body {
 body {
   font-family: var(--font-body);
   background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(255, 176, 32, 0.06), transparent 60%),
-    radial-gradient(1000px 500px at 90% 10%, rgba(45, 212, 167, 0.05), transparent 55%),
+    radial-gradient(1200px 600px at 15% -10%, rgba(255, 176, 32, 0.07), transparent 60%),
+    radial-gradient(1000px 500px at 90% 10%, rgba(45, 212, 167, 0.06), transparent 55%),
+    radial-gradient(900px 700px at 50% 115%, rgba(74, 120, 255, 0.05), transparent 60%),
     var(--asphalt-950);
   color: var(--text-primary);
   display: flex;
@@ -180,8 +201,29 @@ body {
   box-shadow: 0 0 0 3px rgba(255,176,32,0.15);
   color: var(--text-primary);
 }
-.form-select option { background: var(--asphalt-800); color: var(--text-primary); }
+.form-select option {
+  background: var(--asphalt-800);
+  color: var(--text-primary);
+}
 .invalid-feedback { color: var(--red-signal); font-size: .8rem; }
+
+/* Native date-picker icon also needs to follow the dark scheme
+   explicitly in WebKit browsers, otherwise the calendar icon renders
+   near-invisible on a dark field. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+}
+
+/* Custom scrollbar so it matches the theme instead of a bright
+   OS-default light scrollbar sitting on a dark page. */
+* {
+  scrollbar-color: var(--asphalt-600) var(--asphalt-900);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--asphalt-900); }
+::-webkit-scrollbar-thumb { background: var(--asphalt-600); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--hairline); }
 
 .btn-predict {
   font-family: var(--font-display);
@@ -408,10 +450,22 @@ body {
 }
 .empty-state i { font-size: 2.6rem; margin-bottom: .75rem; display: block; }
 
+/* ---------------- Section band ----------------
+   A distinct, cool-toned background band for wrapping a section (e.g.
+   the feature cards) so the page isn't one uniform grey from top to
+   bottom. */
+.section-band {
+  background: var(--surface-alt);
+  border-top: 1px solid var(--surface-alt-border);
+  border-bottom: 1px solid var(--surface-alt-border);
+  padding: 2.25rem 0;
+  margin: 2.5rem 0 0;
+}
+
 /* ---------------- Footer ---------------- */
 .app-footer {
-  border-top: 1px solid var(--hairline);
-  background: var(--asphalt-900);
+  border-top: 1px solid var(--surface-alt-border);
+  background: var(--surface-alt);
   padding: 1.6rem 0;
   margin-top: 3rem;
   flex-shrink: 0;
@@ -422,6 +476,40 @@ body {
   letter-spacing: .05em;
 }
 .footer-tagline, .footer-meta { color: var(--text-muted); font-size: .82rem; }
+
+/* ---------------- Modal (API docs) ---------------- */
+.app-modal {
+  background: linear-gradient(180deg, var(--asphalt-800), var(--asphalt-900));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+}
+.app-modal .modal-header {
+  border-bottom: 1px solid var(--hairline);
+  padding: 1.1rem 1.5rem;
+}
+.app-modal .modal-id {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: .03em;
+  margin: 0;
+  color: var(--text-primary);
+}
+.app-modal .modal-body { padding: 1.5rem; }
+.app-modal .text-muted-app { color: var(--text-muted); font-size: .92rem; }
+.api-code {
+  background: var(--asphalt-950);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.modal-backdrop.show { opacity: .7; }
 
 /* ---------------- Misc ---------------- */
 a { text-decoration: none; }

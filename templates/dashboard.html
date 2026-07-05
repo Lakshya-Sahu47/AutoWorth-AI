@@ -88,8 +88,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script>
 (function () {
-  const gridColor = '#363c45';
-  const textColor = '#8b9299';
+  const rootStyles = getComputedStyle(document.documentElement);
+  const gridColor = rootStyles.getPropertyValue('--hairline').trim() || '#363c45';
+  const textColor = rootStyles.getPropertyValue('--text-muted').trim() || '#8b9299';
+  const surfaceColor = rootStyles.getPropertyValue('--asphalt-900').trim() || '#1a1e23';
 
   Chart.defaults.color = textColor;
   Chart.defaults.font.family = "'Inter', sans-serif";
@@ -101,7 +103,7 @@
       datasets: [{
         data: {{ stats.fuel_distribution.values() | list | tojson }},
         backgroundColor: ['#ffb020', '#2dd4a7', '#4aa3ff'],
-        borderColor: '#1a1e23',
+        borderColor: surfaceColor,
         borderWidth: 2
       }]
     },

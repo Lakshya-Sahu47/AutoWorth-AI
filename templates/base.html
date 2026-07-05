@@ -6,6 +6,23 @@
 <meta name="theme-color" content="#14171b">
 <title>{% block title %}Car Price Predictor{% endblock %}</title>
 
+<script>
+  // Runs before the stylesheet paints anything, so the correct theme is
+  // applied from the first frame instead of flashing dark then light (or
+  // vice versa). Falls back to the OS-level light/dark preference the
+  // first time a visitor arrives, then remembers their choice.
+  (function () {
+    try {
+      var stored = localStorage.getItem('vt-theme');
+      var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      var theme = stored || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+
 <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
 <link rel="alternate icon" href="{{ url_for('static', filename='favicon.svg') }}">
 <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.svg') }}">
@@ -44,10 +61,10 @@
             <i class="bi bi-bar-chart-line"></i> Dashboard
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#apiDocsModal" title="View REST API docs">
-            <i class="bi bi-braces"></i> API
-          </a>
+        <li class="nav-item d-flex align-items-center ms-lg-2">
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode" title="Toggle light / dark mode">
+            <i class="bi bi-moon-stars-fill" id="themeToggleIcon"></i>
+          </button>
         </li>
       </ul>
     </div>
@@ -72,42 +89,6 @@
   </div>
 </main>
 
-<div class="modal fade" id="apiDocsModal" tabindex="-1" aria-labelledby="apiDocsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content app-modal">
-      <div class="modal-header">
-        <h5 class="modal-id" id="apiDocsModalLabel"><i class="bi bi-braces me-2"></i>REST API &mdash; POST /api/predict</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="text-muted-app">Send a JSON body with the same fields as the form. This endpoint doesn't render a page &mdash; it's meant to be called from code, curl, Postman, or another app, which is why the nav link opens this reference instead of navigating there directly.</p>
-        <p class="field-label mb-1">Request</p>
-        <pre class="api-code">curl -X POST {{ request.url_root }}api/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "present_price": 6.5,
-    "kms_driven": 45000,
-    "fuel_type": 0,
-    "seller_type": 0,
-    "transmission": 0,
-    "owner": 0,
-    "car_age": 5
-  }'</pre>
-        <p class="field-label mb-1 mt-3">Response &mdash; 201 Created</p>
-        <pre class="api-code">{
-  "success": true,
-  "id": 12,
-  "predicted_price": 4.42,
-  "formatted_price": "\u20b9 4.42 Lakhs",
-  "price_category": "Mid-Range",
-  "market_value": "Good Resale Value",
-  "timestamp": "05 Jul 2026, 08:50 AM"
-}</pre>
-      </div>
-    </div>
-  </div>
-</div>
-
 <footer class="app-footer">
   <div class="container">
     <div class="row gy-3 align-items-center">
@@ -117,7 +98,7 @@
       </div>
       <div class="col-md-6 text-md-end">
         <div class="footer-meta">Built with Flask &middot; scikit-learn &middot; SQLite</div>
-        <div class="footer-meta text-muted">&copy; {{ 2026 }} ValueTrack. For portfolio &amp; educational use.</div>
+        <div class="footer-meta">&copy; 2026 ValueTrack. For portfolio &amp; educational use.</div>
       </div>
     </div>
   </div>

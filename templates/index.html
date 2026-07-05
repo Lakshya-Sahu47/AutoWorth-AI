@@ -21,47 +21,48 @@
 
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="field-label">Present Price (Lakhs)</label>
-              <input type="number" step="0.01" min="0.01" class="form-control" name="present_price" placeholder="e.g. 6.5" required>
+              <label class="field-label" for="present_price">Present Price (Lakhs)</label>
+              <input type="number" step="0.01" min="0.01" class="form-control" id="present_price" name="present_price" placeholder="e.g. 6.5" required>
               <div class="invalid-feedback">Enter a valid price greater than 0.</div>
             </div>
             <div class="col-md-6">
-              <label class="field-label">Kilometers Driven</label>
-              <input type="number" step="1" min="0" class="form-control" name="kms_driven" placeholder="e.g. 45000" required>
+              <label class="field-label" for="kms_driven">Kilometers Driven</label>
+              <input type="number" step="1" min="0" class="form-control" id="kms_driven" name="kms_driven" placeholder="e.g. 45000" required>
               <div class="invalid-feedback">Enter a valid, non-negative distance.</div>
             </div>
 
             <div class="col-md-4">
-              <label class="field-label">Fuel Type</label>
-              <select name="fuel_type" class="form-select">
+              <label class="field-label" for="fuel_type">Fuel Type</label>
+              <select name="fuel_type" id="fuel_type" class="form-select">
                 <option value="0">Petrol</option>
                 <option value="1">Diesel</option>
                 <option value="2">CNG</option>
               </select>
             </div>
             <div class="col-md-4">
-              <label class="field-label">Seller Type</label>
-              <select name="seller_type" class="form-select">
+              <label class="field-label" for="seller_type">Seller Type</label>
+              <select name="seller_type" id="seller_type" class="form-select">
                 <option value="0">Dealer</option>
                 <option value="1">Individual</option>
               </select>
             </div>
             <div class="col-md-4">
-              <label class="field-label">Transmission</label>
-              <select name="transmission" class="form-select">
+              <label class="field-label" for="transmission">Transmission</label>
+              <select name="transmission" id="transmission" class="form-select">
                 <option value="0">Manual</option>
                 <option value="1">Automatic</option>
               </select>
             </div>
 
             <div class="col-md-6">
-              <label class="field-label">Previous Owners</label>
-              <input type="number" step="1" min="0" class="form-control" name="owner" placeholder="e.g. 0" required>
+              <label class="field-label" for="owner">Previous Owners</label>
+              <input type="number" step="1" min="0" class="form-control" id="owner" name="owner" placeholder="e.g. 0" required>
+              <div class="form-hint">0 = first owner, 1 = second owner, and so on.</div>
               <div class="invalid-feedback">Enter a valid, non-negative number.</div>
             </div>
             <div class="col-md-6">
-              <label class="field-label">Car Age (years)</label>
-              <input type="number" step="1" min="0" max="60" class="form-control" name="car_age" placeholder="e.g. 5" required>
+              <label class="field-label" for="car_age">Car Age (years)</label>
+              <input type="number" step="1" min="0" max="60" class="form-control" id="car_age" name="car_age" placeholder="e.g. 5" required>
               <div class="invalid-feedback">Enter an age between 0 and 60.</div>
             </div>
           </div>
@@ -127,15 +128,11 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-braces"></i>
-          <h3>REST API</h3>
-          <p>Integrate valuations into your own tools via <code>POST /api/predict</code>.
-            <a href="#" data-bs-toggle="modal" data-bs-target="#apiDocsModal" class="d-block mt-1" style="color: var(--teal); font-size: .85rem;">
-              View example request &raquo;
-            </a>
-          </p>
-        </div>
+        <a href="{{ url_for('dashboard') }}" class="feature-card feature-card-link">
+          <i class="bi bi-bar-chart-line"></i>
+          <h3>Analytics Dashboard</h3>
+          <p>See totals, price trends, and fuel-type mix across every prediction you've run.</p>
+        </a>
       </div>
     </div>
   </div>

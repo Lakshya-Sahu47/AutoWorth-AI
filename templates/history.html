@@ -17,20 +17,20 @@
   <div class="console-body">
     <div class="row g-3 align-items-end">
       <div class="col-md-3">
-        <label class="field-label">Search</label>
-        <input type="text" name="search" value="{{ search }}" class="form-control" placeholder="price, km, age...">
+        <label class="field-label" for="search">Search</label>
+        <input type="text" id="search" name="search" value="{{ search }}" class="form-control" placeholder="price, km, age...">
       </div>
       <div class="col-md-3">
-        <label class="field-label">From Date</label>
-        <input type="date" name="date_from" value="{{ date_from }}" class="form-control">
+        <label class="field-label" for="date_from">From Date</label>
+        <input type="date" id="date_from" name="date_from" value="{{ date_from }}" class="form-control">
       </div>
       <div class="col-md-3">
-        <label class="field-label">To Date</label>
-        <input type="date" name="date_to" value="{{ date_to }}" class="form-control">
+        <label class="field-label" for="date_to">To Date</label>
+        <input type="date" id="date_to" name="date_to" value="{{ date_to }}" class="form-control">
       </div>
       <div class="col-md-3">
-        <label class="field-label">Sort By</label>
-        <select name="sort" class="form-select">
+        <label class="field-label" for="sort">Sort By</label>
+        <select name="sort" id="sort" class="form-select">
           <option value="latest" {% if sort == 'latest' %}selected{% endif %}>Latest First</option>
           <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest First</option>
           <option value="price_high" {% if sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>

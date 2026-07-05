@@ -15,5 +15,5 @@ services:
       - key: APP_NAME
         value: "ValueTrack AI"
       - key: PYTHON_VERSION
-        value: "3.12.4"
+        value: "3.13.14"
     autoDeploy: true

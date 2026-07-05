@@ -73,29 +73,6 @@
       </div>
     </div>
 
-    <div class="row g-3 mt-1">
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-clock-history"></i>
-          <h3>Full History</h3>
-          <p>Every prediction is logged automatically &mdash; searchable and exportable.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-file-earmark-pdf"></i>
-          <h3>PDF Reports</h3>
-          <p>Download a formatted valuation report for any past prediction.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-braces"></i>
-          <h3>REST API</h3>
-          <p>Integrate valuations into your own tools via <code>POST /api/predict</code>.</p>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="col-lg-5">
@@ -129,6 +106,38 @@
         <p class="mb-0">Fill in the panel and run a prediction to see the valuation readout here.</p>
       </div>
     {% endif %}
+  </div>
+</div>
+
+<div class="section-band">
+  <div class="container px-0">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-clock-history"></i>
+          <h3>Full History</h3>
+          <p>Every prediction is logged automatically &mdash; searchable and exportable.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-file-earmark-pdf"></i>
+          <h3>PDF Reports</h3>
+          <p>Download a formatted valuation report for any past prediction.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-braces"></i>
+          <h3>REST API</h3>
+          <p>Integrate valuations into your own tools via <code>POST /api/predict</code>.
+            <a href="#" data-bs-toggle="modal" data-bs-target="#apiDocsModal" class="d-block mt-1" style="color: var(--teal); font-size: .85rem;">
+              View example request &raquo;
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
